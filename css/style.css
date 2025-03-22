@@ -1,0 +1,376 @@
+/* Estilo general del cuerpo de la página */
+body {
+    font-family: Arial, sans-serif; /* Fuente principal */
+    background-color: #f8f9fa; /* Color de fondo claro */
+    margin: 0; /* Elimina el margen predeterminado */
+    padding: 0; /* Elimina el relleno predeterminado */
+}
+
+/* Encabezado de la página */
+header {
+    display: flex; /* Flexbox para alineación */
+    justify-content: space-between; /* Distribución de elementos */
+    align-items: center; /* Centrado vertical de los elementos */
+    background-color: #B22222; /* Color de fondo rojo */
+    color: white; /* Color de texto blanco */
+    padding: 10px 0; /* Espaciado interno superior e inferior */
+    text-align: center; /* Centrado del texto */
+    margin-bottom: 0; /* Sin margen inferior */
+}
+
+/* Imagen dentro del encabezado */
+header img {
+    float: right; /* Alineación a la derecha */
+    height: 100px; /* Altura fija */
+    margin: 20px; /* Margen alrededor */
+    vertical-align: middle; /* Alineación vertical */
+}
+
+/* Título dentro del encabezado */
+header h1 {
+    margin: 10px; /* Margen superior e inferior */
+    font-size: 40px; /* Tamaño del texto */
+}
+
+/* Pie de página */
+footer {
+    background-color: #B22222; /* Fondo rojo */
+    color: white; /* Texto blanco */
+    text-align: center; /* Centrado del texto */
+    padding: 10px; /* Espaciado interno */
+    position: fixed; /* Posición fija al final */
+    bottom: 0; /* Pegado al borde inferior */
+    width: 100%; /* Ocupa todo el ancho */
+}
+
+/* Contenedor principal */
+.container {
+    width: 1200px; /* Ancho fijo */
+    margin: 0 auto; /* Centrado horizontal */
+    margin-top: 30px; /* Margen superior */
+    margin-bottom: 30px; /* Margen inferior */
+    padding: 0 15px; /* Espaciado interno lateral */
+    text-align: center; /* Texto centrado */
+}
+
+/* Tarjetas con sombra y efecto hover */
+.card {
+    border-radius: 10px; /* Bordes redondeados */
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15); /* Sombra inicial */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transición */
+}
+
+.card:hover {
+    transform: scale(1.05); /* Escala al pasar el ratón */
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.25); /* Sombra más pronunciada */
+}
+
+/* Título de la tarjeta */
+.card-title {
+    font-size: 1.5rem; /* Tamaño de fuente */
+    margin-bottom: 15px; /* Espaciado inferior */
+}
+
+/* Texto de la tarjeta */
+.card-text {
+    font-size: 1rem; /* Tamaño de fuente */
+    color: #666; /* Color del texto */
+}
+
+/* Botón con estilo redondeado */
+.btn {
+    background-color: #B22222; /* Fondo rojo */
+    color: white; /* Texto blanco */
+    border-radius: 25px; /* Bordes redondeados */
+    padding: 12px 20px; /* Espaciado interno */
+    font-size: 16px; /* Tamaño de texto */
+    font-weight: bold; /* Texto en negrita */
+    width: 60%; /* Ancho del botón */
+    align-self: center; /* Centramos el botón */
+    text-transform: uppercase; /* Texto en mayúsculas */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Transiciones */
+}
+
+.btn:hover {
+    background-color: darkred; /* Cambio de color al pasar el ratón */
+    transform: scale(1.1); /* Efecto de zoom */
+}
+
+/* Estilos para la barra de navegación */
+.navbar {
+    background-color: darkred; /* Fondo rojo oscuro */
+}
+
+/* Titulares destacados */
+h1.display-4 {
+    font-size: 2.5rem; /* Tamaño de fuente */
+    font-weight: bold; /* Texto en negrita */
+    color: #333; /* Color del texto */
+}
+
+/* Espaciado en filas */
+.row.g-4 {
+    gap: 30px; /* Espaciado entre filas */
+}
+
+/* Responsividad para pantallas pequeñas */
+@media (max-width: 768px) {
+    .btn {
+        width: 90%; /* Botones más anchos */
+    }
+
+    .login-container {
+        padding-top: 30px; /* Ajuste superior */
+    }
+}
+
+/* Contenedor de formulario con diseño flexible */
+.login-container {
+    display: flex; /* Flexbox */
+    justify-content: center; /* Centrado horizontal */
+    align-items: flex-start; /* Alineado superior */
+    min-height: 100vh; /* Altura mínima */
+    background: linear-gradient(135deg, #f8f9fa, #e6e6e6); /* Gradiente */
+}
+
+/* Tarjeta de formulario */
+.login-card {
+    margin-top: 10px; /* Espaciado superior */
+    max-width: 500px; /* Ancho máximo */
+    width: 100%; /* Ocupa el ancho completo */
+    background-color: white; /* Fondo blanco */
+    border: 1px solid #ddd; /* Borde gris claro */
+    border-radius: 10px; /* Bordes redondeados */
+    padding: 10px; /* Espaciado interno */
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Transiciones */
+}
+
+
+.login-card:hover {
+    transform: scale(1.03); /* Efecto de zoom ligero al pasar el mouse */
+    box-shadow: 0 12px 24px rgba(0, 0, 0, 0.3); /* Sombra más profunda para resaltar la tarjeta */
+}
+
+/* Título del formulario dentro de la tarjeta de inicio de sesión */
+.login-card h2 {
+    font-size: 1.8rem; /* Tamaño de fuente grande para destacar el título */
+    color: #333; /* Color gris oscuro para el texto */
+    text-align: center; /* Centrado del texto */
+    margin-bottom: 20px; /* Espaciado inferior */
+    font-weight: bold; /* Texto en negrita */
+}
+
+/* Estilo para los controles del formulario */
+.form-control {
+    border-radius: 8px; /* Bordes redondeados para una apariencia moderna */
+    border: 1px solid #ccc; /* Borde gris claro */
+    padding: 10px; /* Espaciado interno uniforme */
+    font-size: 14px; /* Tamaño de fuente moderado */
+    transition: border-color 0.3s ease, box-shadow 0.3s ease; /* Animación suave al interactuar */
+}
+
+/* Estilo al enfocar los controles del formulario */
+.form-control:focus {
+    border-color: #B22222; /* Cambia el color del borde a rojo oscuro */
+    box-shadow: 0 0 8px rgba(178, 34, 34, 0.5); /* Efecto de brillo rojo alrededor del campo */
+}
+
+/* Texto de error en el formulario */
+.text-danger {
+    font-size: 14px; /* Tamaño de fuente pequeño */
+    font-weight: bold; /* Texto en negrita */
+    color: darkred; /* Color rojo oscuro */
+    margin-top: 10px; /* Espaciado superior */
+    text-align: center; /* Centrado del texto */
+}
+
+/* Personalización del botón principal */
+.btn-primary {
+    background-color: #B22222 !important; /* Rojo como color de fondo principal */
+    border-color: #B22222 !important; /* Borde rojo */
+    color: white !important; /* Texto blanco */
+    border-radius: 25px; /* Bordes completamente redondeados */
+    font-weight: bold; /* Texto en negrita */
+    padding: 12px 20px; /* Espaciado interno adicional */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Animaciones suaves */
+}
+
+/* Efecto hover para el botón principal */
+.btn-primary:hover {
+    background-color: darkred !important; /* Rojo más oscuro al pasar el mouse */
+    border-color: darkred !important; /* Borde ajustado a rojo oscuro */
+    transform: scale(1.05); /* Efecto de aumento ligero */
+}
+
+/* Estilo general para tablas */
+table {
+    width: 100%; /* Ocupa el ancho completo del contenedor */
+    border-collapse: collapse; /* Colapsa bordes para evitar espacio doble */
+    margin-bottom: 20px; /* Espaciado inferior */
+}
+
+/* Bordes para tablas, cabeceras y celdas */
+table, th, td {
+    border: 1px solid #ddd; /* Borde gris claro */
+}
+
+/* Espaciado interno y alineación del texto */
+th, td {
+    padding: 10px; /* Espaciado interno uniforme */
+    text-align: left; /* Alineación a la izquierda */
+}
+
+/* Estilo para cabeceras de tabla */
+th {
+    background-color: #b00000; /* Fondo rojo oscuro */
+    color: white; /* Texto blanco */
+}
+
+/* Enlaces dentro del contenido */
+a {
+    color: #b00000; /* Rojo oscuro */
+    text-decoration: none; /* Sin subrayado por defecto */
+}
+
+/* Efecto hover para enlaces */
+a:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+/* Mensajes de éxito */
+.mensaje {
+    color: green; /* Texto en verde para indicar éxito */
+}
+
+/* Mensajes de error */
+.error {
+    color: red; /* Texto en rojo para destacar errores */
+}
+
+/* Contenedor principal para implementos */
+.container-implemento {
+    display: flex; /* Disposición flexible */
+    flex-direction: column; /* Columnas como eje principal */
+    align-items: center; /* Elementos centrados horizontalmente */
+    justify-content: center; /* Elementos centrados verticalmente */
+    min-height: 100vh; /* Ocupa toda la altura de la ventana */
+}
+
+/* Contenedor de formulario */
+.form-container-implemento {
+    background-color: white; /* Fondo blanco */
+    width: 400px; /* Ancho fijo */
+    border-radius: 8px; /* Bordes redondeados */
+    padding: 20px; /* Espaciado interno */
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Sombra ligera */
+    text-align: left; /* Texto alineado a la izquierda */
+}
+
+/* Estilo para etiquetas en formularios */
+label {
+    font-size: 14px; /* Tamaño pequeño */
+    margin-bottom: 5px; /* Espaciado inferior */
+    display: block; /* Asegura que esté en una línea separada */
+    font-weight: bold; /* Texto en negrita */
+}
+
+/* Estilo para campos de entrada, selección y área de texto */
+input, select, textarea {
+    width: 100%; /* Ocupa todo el ancho del contenedor */
+    padding: 10px; /* Espaciado interno */
+    margin: 8px 0; /* Espaciado vertical */
+    border: 1px solid #ccc; /* Borde gris claro */
+    border-radius: 4px; /* Bordes ligeramente redondeados */
+    font-size: 14px; /* Tamaño de texto moderado */
+}
+
+/* Botón genérico */
+button {
+    background-color: #c8102e; /* Rojo intenso */
+    color: white; /* Texto blanco */
+    padding: 10px; /* Espaciado interno */
+    width: 100%; /* Ancho completo */
+    border: none; /* Sin bordes */
+    border-radius: 4px; /* Bordes redondeados */
+    cursor: pointer; /* Indicador de clic */
+    font-size: 16px; /* Tamaño de texto moderado */
+}
+
+/* Efecto hover para botones */
+button:hover {
+    background-color: #a10e24; /* Rojo más oscuro */
+}
+
+/* Enlace para volver */
+.volver {
+    text-align: center; /* Centrado del texto */
+    display: block; /* Asegura que sea un bloque */
+    margin-top: 15px; /* Espaciado superior */
+    color: #c8102e; /* Rojo intenso */
+    text-decoration: none; /* Sin subrayado */
+}
+
+/* Efecto hover para el enlace de volver */
+.volver:hover {
+    text-decoration: underline; /* Subrayado al pasar el mouse */
+}
+
+/* Botón de alternar visibilidad de contraseña */
+.toggle-password-btn {
+    width: 30px; /* Tamaño reducido */
+    height: 30px; /* Tamaño reducido */
+    padding: 0; /* Sin espaciado interno */
+    font-size: 16px; /* Tamaño del icono */
+    border-radius: 50%; /* Forma circular */
+    display: flex; /* Contenedor flexible */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    background-color: #e6e6e6; /* Fondo neutro */
+    border: 1px solid #ccc; /* Borde gris claro */
+    cursor: pointer; /* Indicador de clic */
+    box-shadow: none; /* Sin sombra */
+    transition: background-color 0.3s ease, transform 0.2s ease; /* Animaciones suaves */
+}
+
+/* Efecto hover para el botón de visibilidad */
+.toggle-password-btn:hover {
+    background-color: #d4d4d4; /* Fondo más oscuro */
+    transform: scale(1.1); /* Aumento ligero */
+}
+
+/* Estilo del icono dentro del botón de visibilidad */
+.toggle-password-btn span {
+    font-size: 20px; /* Tamaño del icono */
+    color: #333; /* Color gris oscuro */
+}
+
+/* Contenedor de entrada con grupo adicional */
+.input-group {
+    display: flex; /* Disposición flexible */
+    align-items: center; /* Centrado vertical */
+}
+
+/* Campo de formulario dentro de un grupo */
+.input-group .form-control {
+    border-top-right-radius: 0; /* Sin redondeo en la esquina superior derecha */
+    border-bottom-right-radius: 0; /* Sin redondeo en la esquina inferior derecha */
+}
+
+/* Botón dentro de un grupo de entrada */
+.input-group .toggle-password-btn {
+    height: 100%; /* Coincide con la altura del campo */
+    margin-left: 0; /* Sin margen izquierdo */
+    border-radius: 0 8px 8px 0; /* Bordes redondeados solo en las esquinas derecha */
+    border: 1px solid #ccc; /* Borde gris claro */
+    background-color: #f0f0f0; /* Fondo gris claro */
+    display: flex; /* Flexbox */
+    align-items: center; /* Centrado vertical */
+    justify-content: center; /* Centrado horizontal */
+    padding: 0; /* Sin espaciado interno */
+}
+
+
+
+
+
+
