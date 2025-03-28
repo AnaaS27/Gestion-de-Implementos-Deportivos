@@ -11,7 +11,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_usuario = $_SESSION['id_usuario'];
     $id_implemento = $_POST['id_implemento'];
     $fecha_prestamo = $_POST['fecha_prestamo'];
-    $fecha_devolucion = $_POST['fecha_devolucion'];
     $observaciones_Est = $_POST['observaciones_Est'];
 
     // Verificar que el implemento exista
@@ -23,10 +22,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if ($result->num_rows > 0) {
         // Insertar el préstamo
-        $insert = "INSERT INTO prestamo (id_usuario, id_implemento, fecha_prestamo, fecha_devolucion, observaciones_Est)
-                   VALUES (?, ?, ?, ?, ?)";
+        $insert = "INSERT INTO prestamo (id_usuario, id_implemento, fecha_prestamo, observaciones_Est)
+                   VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($insert);
-        $stmt->bind_param("iisss", $id_usuario, $id_implemento, $fecha_prestamo, $fecha_devolucion, $observaciones_Est);
+        $stmt->bind_param("iiss", $id_usuario, $id_implemento, $fecha_prestamo, $observaciones_Est);
         
         if ($stmt->execute()) {
             echo "Préstamo solicitado con éxito.";
@@ -72,10 +71,6 @@ $implementos_result = $conn->query($implementos_query);
                             <div class="mb-3">
                                 <label for="fecha_prestamo" class="form-label">Fecha de Préstamo:</label>
                                 <input type="date" class="form-control" id="fecha_prestamo" name="fecha_prestamo" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="fecha_devolucion" class="form-label">Fecha de Devolución:</label>
-                                <input type="date" class="form-control" id="fecha_devolucion" name="fecha_devolucion" required>
                             </div>
                             <div class="mb-3">
                                 <label for="observaciones_Est" class="form-label">Observaciones:</label>
