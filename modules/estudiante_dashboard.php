@@ -64,7 +64,7 @@ $result = $stmt->get_result();
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card text-center h-100">
                     <div class="card-body d-flex flex-column">
-                        <h5 class="card-title"><i class="fas fa-book"></i> Realizar Préstamo</h5>
+                        <h5 class="card-title"><i class="fas fa-book"></i> Solicitar Préstamo</h5>
                         <p class="card-text">Solicita implementos para tus actividades.</p>
                         <a href="realizar_prestamo.php" class="btn btn-primary mt-auto">Ir</a>
                     </div>
