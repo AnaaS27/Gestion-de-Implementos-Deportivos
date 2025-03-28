@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             echo "Cantidad solicitada no disponible.";
         }
     } else {
-        echo "El implemento no existe o no esta disponible."
+        echo "El implemento no existe o no esta disponible.";
     }
 }
 
