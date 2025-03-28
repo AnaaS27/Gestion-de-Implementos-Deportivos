@@ -13,7 +13,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $fecha_prestamo = $_POST['fecha_prestamo'];
     $observaciones_Est = $_POST['observaciones_Est'];
 
-    // Verificar que el implemento exista
+
     $query = "SELECT * FROM implemento WHERE id_implemento = ?";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $id_implemento);
@@ -21,7 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Insertar el préstamo
+
         $insert = "INSERT INTO prestamo (id_usuario, id_implemento, fecha_prestamo, observaciones_Est)
                    VALUES (?, ?, ?, ?)";
         $stmt = $conn->prepare($insert);
@@ -38,7 +38,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 
-// Consulta para obtener implementos disponibles
+
 $implementos_query = "SELECT id_implemento, nombre, tipo, cantidad FROM implemento WHERE estado = 'disponible'";
 $implementos_result = $conn->query($implementos_query);
 ?>
@@ -58,7 +58,7 @@ $implementos_result = $conn->query($implementos_query);
     <div class="container mt-5">
         <h1 class="text-center mb-4">Solicitud de Préstamo</h1>
         <div class="row">
-            <!-- Formulario de Préstamo -->
+
             <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-body">
@@ -86,11 +86,12 @@ $implementos_result = $conn->query($implementos_query);
                 </div>
             </div>
 
-            <!-- Tabla de Implementos Disponibles -->
+            
             <div class="col-md-6">
                 <h2 class="mb-4">Implementos Disponibles</h2>
+                <input type="text" id="searchInput" class="form-control mb-3" placeholder="Buscar implemento por nombre...">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped" id="implementosTable">
                         <thead class="table-dark">
                             <tr>
                                 <th>ID</th>
@@ -119,6 +120,18 @@ $implementos_result = $conn->query($implementos_query);
                 </div>
             </div>
         </div>
+    </div>
     <?php include '../includes/footer.php'; ?>
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            let filter = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#implementosTable tbody tr');
+            
+            rows.forEach(row => {
+                let name = row.cells[1].textContent.toLowerCase();
+                row.style.display = name.includes(filter) ? '' : 'none';
+            });
+        });
+    </script>
 </body>
 </html>
