@@ -89,35 +89,36 @@ $implementos_result = $conn->query($implementos_query);
             <!-- Tabla de Implementos Disponibles -->
             <div class="col-md-6">
                 <h2 class="mb-4">Implementos Disponibles</h2>
-                <table class="table table-bordered">
-                    <thead class="table-dark">
-                        <tr>
-                            <th>ID</th>
-                            <th>Nombre</th>
-                            <th>Tipo</th>
-                            <th>Cantidad</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
-                        if ($implementos_result && $implementos_result->num_rows > 0) {
-                            while ($row = $implementos_result->fetch_assoc()) {
-                                echo "<tr>
-                                    <td>{$row['id_implemento']}</td>
-                                    <td>{$row['nombre']}</td>
-                                    <td>{$row['tipo']}</td>
-                                    <td>{$row['cantidad']}</td>
-                                </tr>";
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped">
+                        <thead class="table-dark">
+                            <tr>
+                                <th>ID</th>
+                                <th>Nombre Implemento</th>
+                                <th>Tipo Implemento</th>
+                                <th>Cantidad</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <?php
+                            if ($implementos_result && $implementos_result->num_rows > 0) {
+                                while ($row = $implementos_result->fetch_assoc()) {
+                                    echo "<tr>
+                                        <td>{$row['id_implemento']}</td>
+                                        <td>{$row['nombre']}</td>
+                                        <td>{$row['tipo']}</td>
+                                        <td>{$row['cantidad']}</td>
+                                    </tr>";
+                                }
+                            } else {
+                                echo "<tr><td colspan='4' class='text-center'>No hay implementos disponibles.</td></tr>";
                             }
-                        } else {
-                            echo "<tr><td colspan='3'>No hay implementos disponibles.</td></tr>";
-                        }
-                        ?>
-                    </tbody>
-                </table>
+                            ?>
+                        </tbody>
+                    </table>
+                </div>
             </div>
         </div>
-    </div>
     <?php include '../includes/footer.php'; ?>
 </body>
 </html>
