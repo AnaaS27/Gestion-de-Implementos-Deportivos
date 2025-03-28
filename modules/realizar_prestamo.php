@@ -10,30 +10,45 @@ include '../conexion.php'; // Conexión a la base de datos
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_usuario = $_SESSION['id_usuario'];
     $id_implemento = $_POST['id_implemento'];
+    $cantidad = $_POST['cantidad'];
     $fecha_prestamo = $_POST['fecha_prestamo'];
     $observaciones_Est = $_POST['observaciones_Est'];
 
 
-    $query = "SELECT * FROM implemento WHERE id_implemento = ?";
+    $query = "SELECT cantidad FROM implemento WHERE id_implemento = ? AND estado = 'disponible'";
     $stmt = $conn->prepare($query);
     $stmt->bind_param("i", $id_implemento);
     $stmt->execute();
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
+        $row = $result->fetch_assoc();
+        $cantidad_disponible = $row['cantidad'];
 
-        $insert = "INSERT INTO prestamo (id_usuario, id_implemento, fecha_prestamo, observaciones_Est)
-                   VALUES (?, ?, ?, ?)";
-        $stmt = $conn->prepare($insert);
-        $stmt->bind_param("iiss", $id_usuario, $id_implemento, $fecha_prestamo, $observaciones_Est);
-        
-        if ($stmt->execute()) {
-            echo "Préstamo solicitado con éxito.";
+        if ($cantidad > 0 && $cantidad <= $cantidad_disponible) {
+            //Insertar el prestamo
+            $insert = "INSERT INTO prestamo (id_usuario, id_implemento, cantidad, fecha_prestamo, observaciones_Est)
+                    VALUES (?, ?, ?, ?, ?)";
+            $stmt = $conn->prepare($insert);
+            $stmt->bind_param("iiiss", $id_usuario, $id_implemento, $cantidad, $fecha_prestamo, $observaciones_Est);
+            
+            if ($stmt->execute()) {
+                // Actualizar la cantidad disponible
+                $nueva_cantidad = $cantidad_disponible - $cantidad;
+                $update = "UPDATE implemento SET cantidad = ? WHERE id_implemento = ?";
+                $stmt = $conn->prepare($update);
+                $stmt->bind_param("ii", $nueva_cantidad, $id_implemento);
+                $stmt->execute();
+
+                echo "Préstamo solicitado con éxito.";
+            } else {
+                echo "Error al solicitar el préstamo.";
+            }
         } else {
-            echo "Error al solicitar el préstamo.";
+            echo "Cantidad solicitada no disponible.";
         }
     } else {
-        echo "El implemento no existe.";
+        echo "El implemento no existe o no esta disponible."
     }
 }
 
@@ -67,6 +82,10 @@ $implementos_result = $conn->query($implementos_query);
                             <div class="mb-3">
                                 <label for="id_implemento" class="form-label">ID Implemento:</label>
                                 <input type="number" class="form-control" id="id_implemento" name="id_implemento" placeholder="Ingrese el ID del implemento" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="cantidad" class="form-label">Cantidad:</label>
+                                <input type="number" class="form-control" id="cantidad" name="cantidad" min="1" required>
                             </div>
                             <div class="mb-3">
                                 <label for="fecha_prestamo" class="form-label">Fecha de Préstamo:</label>
