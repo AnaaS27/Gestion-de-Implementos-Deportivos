@@ -29,9 +29,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         $stmt->bind_param("iisss", $id_usuario, $id_implemento, $fecha_prestamo, $fecha_devolucion, $observaciones_Est);
         
         if ($stmt->execute()) {
-            echo "Préstamo realizado con éxito.";
+            echo "Préstamo solicitado con éxito.";
         } else {
-            echo "Error al realizar el préstamo.";
+            echo "Error al solicitar el préstamo.";
         }
     } else {
         echo "El implemento no existe.";
@@ -48,7 +48,7 @@ $implementos_result = $conn->query($implementos_query);
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <title>Realizar Préstamo</title>
+    <title>Solicitud de Préstamo</title>
     <link rel="stylesheet" href="../css/style.css">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
@@ -57,13 +57,13 @@ $implementos_result = $conn->query($implementos_query);
 <body>
     <?php include '../includes/header.php'; ?>
     <div class="container mt-5">
-        <h1 class="text-center mb-4">Realizar Préstamo</h1>
+        <h1 class="text-center mb-4">Solicitud de Préstamo</h1>
         <div class="row">
             <!-- Formulario de Préstamo -->
             <div class="col-md-6">
                 <div class="card shadow-sm">
                     <div class="card-body">
-                        <h5 class="card-title text-center mb-4">Formulario de Préstamo</h5>
+                        <h5 class="card-title text-center mb-4">Formulario de solicitud de Préstamo</h5>
                         <form method="POST">
                             <div class="mb-3">
                                 <label for="id_implemento" class="form-label">ID Implemento:</label>
@@ -82,7 +82,7 @@ $implementos_result = $conn->query($implementos_query);
                                 <textarea class="form-control" id="observaciones_Est" name="observaciones_Est" rows="3" placeholder="Añade comentarios o detalles adicionales"></textarea>
                             </div>
                             <div class="d-grid">
-                                <button type="submit" class="btn btn-primary">Realizar Préstamo</button>
+                                <button type="submit" class="btn btn-primary">Solicitar Préstamo</button>
                             </div>
                         </form>
 
