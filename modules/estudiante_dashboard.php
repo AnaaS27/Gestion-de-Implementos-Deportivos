@@ -1,17 +1,15 @@
 <?php
 session_start();
-// Verificar inicio de sesion del rol Estudiante
 if (!isset($_SESSION['id_usuario']) || $_SESSION['rol'] != 'Estudiante') {
     header("Location: ../login.php");
     exit;
 }
 
-require_once '../conexion.php'; // Archivo de conexión a la base de datos
+require_once '../conexion.php';
 
-// Obtener los préstamos del estudiante
 $id_usuario = $_SESSION['id_usuario'];
 $query = "
-    SELECT p.id_prestamo, i.nombre AS implemento, p.fecha_prestamo, p.fecha_devolucion, p.estado, p.observaciones_Est, p.observaciones_Generales 
+    SELECT p.id_prestamo, i.nombre AS implemento, p.fecha_prestamo, p.hora_prestamo, p.hora_devolucion, p.estado, p.observaciones_Est, p.observaciones_Generales 
     FROM prestamo p 
     INNER JOIN implemento i ON p.id_implemento = i.id_implemento 
     WHERE p.id_usuario = ?";
@@ -33,10 +31,8 @@ $result = $stmt->get_result();
     <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
 </head>
 <body>
-    <!-- Encabezado -->
     <?php include '../includes/header.php'; ?>
 
-    <!-- Barra de navegación -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="#">Panel Estudiante</a>
@@ -53,13 +49,11 @@ $result = $stmt->get_result();
         </div>
     </nav>
 
-    <!-- Contenido principal -->
     <div class="container my-5">
         <div class="text-center mb-4">
             <h1 class="display-4">Bienvenido, Estudiante</h1>
         </div>
-        
-        <!-- Tarjetas de opciones -->
+
         <div class="row justify-content-center g-4">
             <div class="col-12 col-md-6 col-lg-4">
                 <div class="card text-center h-100">
@@ -81,7 +75,6 @@ $result = $stmt->get_result();
             </div>
         </div>
 
-        <!-- Tabla de préstamos -->
         <div class="mt-5">
             <h2 class="text-center">Tus Préstamos</h2>
             <table class="table table-striped table-hover mt-3">
@@ -90,7 +83,8 @@ $result = $stmt->get_result();
                         <th>ID Préstamo</th>
                         <th>Implemento</th>
                         <th>Fecha Préstamo</th>
-                        <th>Fecha Devolución</th>
+                        <th>Hora Préstamo</th>
+                        <th>Hora Devolución</th>
                         <th>Estado</th>
                         <th>Observaciones Estudiante</th>
                         <th>Observaciones Generales</th>
@@ -103,7 +97,8 @@ $result = $stmt->get_result();
                                 <td><?= $row['id_prestamo']; ?></td>
                                 <td><?= $row['implemento']; ?></td>
                                 <td><?= $row['fecha_prestamo']; ?></td>
-                                <td><?= $row['fecha_devolucion']; ?></td>
+                                <td><?= $row['hora_prestamo']; ?></td>
+                                <td><?= $row['hora_devolucion']; ?></td>
                                 <td><?= $row['estado']; ?></td>
                                 <td><?= $row['observaciones_Est']; ?></td>
                                 <td><?= $row['observaciones_Generales']; ?></td>
@@ -111,7 +106,7 @@ $result = $stmt->get_result();
                         <?php endwhile; ?>
                     <?php else: ?>
                         <tr>
-                            <td colspan="6" class="text-center">No tienes préstamos registrados.</td>
+                            <td colspan="8" class="text-center">No tienes préstamos registrados.</td>
                         </tr>
                     <?php endif; ?>
                 </tbody>
@@ -119,12 +114,6 @@ $result = $stmt->get_result();
         </div>
     </div>
 
-    <!-- Pie de página -->
     <?php include '../includes/footer.php'; ?>
 </body>
 </html>
-
-
-
-
-
