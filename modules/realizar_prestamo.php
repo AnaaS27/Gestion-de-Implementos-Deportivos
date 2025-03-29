@@ -42,20 +42,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $cantidad_disponible = $row['cantidad'];
 
             if ($cantidad > 0 && $cantidad <= $cantidad_disponible) {
-                // Restar la cantidad prestada en la base de datos
-                $nueva_cantidad = $cantidad_disponible - $cantidad;
-                $update_query = "UPDATE implemento SET cantidad = ? WHERE id_implemento = ?";
-                $stmt = $conn->prepare($update_query);
-                $stmt->bind_param("ii", $nueva_cantidad, $id_implemento);
-                $stmt->execute();
-
                 // Insertar el préstamo en la base de datos
-                $insert = "INSERT INTO prestamo (id_usuario, id_implemento, cantidad, fecha_prestamo, hora_prestamo, hora_devolucion, observaciones_Est, estado) 
-                        VALUES (?, ?, ?, NOW(), ?, ?, ?, 'activo')";
+                $insert = "INSERT INTO prestamo (id_usuario, id_implemento, cantidad, fecha_prestamo, hora_prestamo, hora_devolucion, observaciones_Est) 
+                        VALUES (?, ?, ?, NOW(), ?, ?, ?)";
                 $stmt = $conn->prepare($insert);
-                $stmt->bind_param("iiisss", $id_usuario, $id_implemento, $cantidad, $hora_prestamo, $hora_devolucion, $observaciones_Est);
+                $stmt->bind_param("iiisss", $id_usuario, $id_implemento, $cantidad, $fecha_prestamo, $hora_prestamo, $hora_devolucion, $observaciones_Est);
 
+                // Restar la cantidad prestada en la base de datos
                 if ($stmt->execute()) {
+                    $nueva_cantidad = $cantidad_disponible - $cantidad;
+                    $update_query = "UPDATE implemento SET cantidad = ? WHERE id_implemento = ?";
+                    $stmt = $conn->prepare($update_query);
+                    $stmt->bind_param("ii", $nueva_cantidad, $id_implemento);
+                    $stmt->execute();
+
                     $mensaje = "<div class='alert alert-success'>Préstamo realizado con éxito.</div>";
                 } else {
                     $mensaje = "<div class='alert alert-danger'>Error al realizar el préstamo.</div>";
@@ -113,8 +113,12 @@ $implementos_result = $conn->query($implementos_query);
                                 <input type="number" class="form-control" id="cantidad" name="cantidad" min="1" required>
                             </div>
                             <div class="mb-3">
-                                <label for="fecha_prestamo" class="form-label">Horas de Uso:</label>
+                                <label for="fecha_prestamo" class="form-label">Fecha de Préstamo:</label>
                                 <input type="number" class="form-control" id="fecha_prestamo" name="fecha_prestamo" min="1" max="5" required>
+                            </div>
+                            <div class="mb-3">
+                                <label for="hora_prestamo" class="form-label">Horas de Uso:</label>
+                                <input type="number" class="form-control" id="hora_prestamo" name="hora_prestamo" min="1" max="5" required>
                             </div>
                             <div class="mb-3">
                                 <label for="observaciones_Est" class="form-label">Observaciones:</label>
@@ -130,8 +134,9 @@ $implementos_result = $conn->query($implementos_query);
             </div>
             <div class="col-md-6">
                 <h2 class="mb-4">Implementos Disponibles</h2>
+                <input type="text" id="searchInput" class="form-control mb-3" placeholder="Buscar implemento por nombre...">
                 <div class="table-responsive">
-                    <table class="table table-bordered table-striped">
+                    <table class="table table-bordered table-striped" id="implementosTable">
                         <thead class="table-dark">
                             <tr>
                                 <th>ID</th>
@@ -142,7 +147,7 @@ $implementos_result = $conn->query($implementos_query);
                         </thead>
                         <tbody>
                             <?php
-                            if ($implementos_result->num_rows > 0) {
+                            if ($implementos_result && $implementos_result->num_rows > 0) {
                                 while ($row = $implementos_result->fetch_assoc()) {
                                     echo "<tr>
                                         <td>{$row['id_implemento']}</td>
@@ -162,5 +167,16 @@ $implementos_result = $conn->query($implementos_query);
         </div>
     </div>
     <?php include '../includes/footer.php'; ?>
+    <script>
+        document.getElementById('searchInput').addEventListener('keyup', function() {
+            let filter = this.value.toLowerCase();
+            let rows = document.querySelectorAll('#implementosTable tbody tr');
+            
+            rows.forEach(row => {
+                let name = row.cells[1].textContent.toLowerCase();
+                row.style.display = name.includes(filter) ? '' : 'none';
+            });
+        });
+    </script>
 </body>
 </html>
