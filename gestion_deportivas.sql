@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 28-03-2025 a las 23:14:28
+-- Tiempo de generación: 29-03-2025 a las 01:02:23
 -- Versión del servidor: 10.4.32-MariaDB
 -- Versión de PHP: 8.2.12
 
@@ -108,7 +108,7 @@ CREATE TABLE `implemento` (
 
 INSERT INTO `implemento` (`id_implemento`, `nombre`, `tipo`, `cantidad`, `estado`) VALUES
 (9, 'ping pong', 'mesa', 5, 'Disponible'),
-(10, 'raqueta', 'ping pong', 3, 'Disponible'),
+(10, 'raqueta', 'ping pong', 1, 'Disponible'),
 (12, 'Futbol', 'Balon', 6, 'Disponible'),
 (30, 'baloncesto', 'Balon', 8, 'Disponible');
 
@@ -122,6 +122,7 @@ CREATE TABLE `prestamo` (
   `id_prestamo` int(11) NOT NULL,
   `id_usuario` int(11) NOT NULL,
   `id_implemento` int(11) NOT NULL,
+  `cantidad` int(50) NOT NULL,
   `fecha_prestamo` date NOT NULL,
   `fecha_devolucion` date DEFAULT NULL,
   `estado` enum('Pendiente','Aceptado','Cancelado') DEFAULT NULL,
@@ -133,13 +134,19 @@ CREATE TABLE `prestamo` (
 -- Volcado de datos para la tabla `prestamo`
 --
 
-INSERT INTO `prestamo` (`id_prestamo`, `id_usuario`, `id_implemento`, `fecha_prestamo`, `fecha_devolucion`, `estado`, `observaciones_Est`, `observaciones_Generales`) VALUES
-(2022, 14, 12, '2024-12-09', '2024-12-11', 'Cancelado', 'ya no lo necesito', 'su prestamo ha sido aceptado'),
-(2024, 12, 10, '2024-12-11', '2024-12-13', 'Aceptado', 'necesito 2 raquetas', ''),
-(2025, 14, 9, '2024-12-11', '2024-12-13', 'Aceptado', 'necesito 1 mesa', ''),
-(2026, 17, 30, '2024-12-19', '2024-12-20', 'Aceptado', 'necesita 3 balones', ''),
-(2027, 19, 9, '2025-03-02', '2025-03-04', 'Aceptado', 'necesito 1 mesa', ''),
-(2028, 19, 12, '2025-03-03', '2025-03-10', 'Pendiente', 'para jugar', '');
+INSERT INTO `prestamo` (`id_prestamo`, `id_usuario`, `id_implemento`, `cantidad`, `fecha_prestamo`, `fecha_devolucion`, `estado`, `observaciones_Est`, `observaciones_Generales`) VALUES
+(2022, 14, 12, 0, '2024-12-09', '2024-12-11', 'Cancelado', 'ya no lo necesito', 'su prestamo ha sido aceptado'),
+(2024, 12, 10, 0, '2024-12-11', '2024-12-13', 'Aceptado', 'necesito 2 raquetas', ''),
+(2025, 14, 9, 0, '2024-12-11', '2024-12-13', 'Aceptado', 'necesito 1 mesa', ''),
+(2026, 17, 30, 0, '2024-12-19', '2024-12-20', 'Aceptado', 'necesita 3 balones', ''),
+(2027, 19, 9, 0, '2025-03-02', '2025-03-04', 'Aceptado', 'necesito 1 mesa', ''),
+(2028, 19, 12, 0, '2025-03-03', '2025-03-10', 'Pendiente', 'para jugar', ''),
+(2029, 19, 10, 0, '2025-03-28', NULL, NULL, 'Necesito una raqueta', NULL),
+(2030, 19, 9, 0, '2025-03-30', NULL, NULL, 'necesito una mesa', NULL),
+(2031, 19, 30, 0, '2025-03-31', NULL, NULL, 'necesito un balon', NULL),
+(2032, 19, 12, 0, '2025-02-23', NULL, NULL, 'Con urgencia se necesitan 2', NULL),
+(2033, 19, 10, 0, '2025-07-13', NULL, NULL, 'Se necesitan raquetas', NULL),
+(2034, 19, 10, 2, '2025-04-12', NULL, NULL, 'aja', NULL);
 
 -- --------------------------------------------------------
 
@@ -248,7 +255,7 @@ ALTER TABLE `implemento`
 -- AUTO_INCREMENT de la tabla `prestamo`
 --
 ALTER TABLE `prestamo`
-  MODIFY `id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2029;
+  MODIFY `id_prestamo` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2035;
 
 --
 -- AUTO_INCREMENT de la tabla `usuario`
