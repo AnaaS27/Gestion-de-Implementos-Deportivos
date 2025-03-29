@@ -114,7 +114,7 @@ $implementos_result = $conn->query($implementos_query);
                             </div>
                             <div class="mb-3">
                                 <label for="fecha_prestamo" class="form-label">Fecha de Préstamo:</label>
-                                <input type="number" class="form-control" id="fecha_prestamo" name="fecha_prestamo" min="1" max="5" required>
+                                <input type="date" class="form-control" id="fecha_prestamo" name="fecha_prestamo" min="1" max="5" required>
                             </div>
                             <div class="mb-3">
                                 <label for="hora_prestamo" class="form-label">Horas de Uso:</label>
