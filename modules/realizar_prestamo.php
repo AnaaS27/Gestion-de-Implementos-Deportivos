@@ -1,4 +1,5 @@
 <?php
+date_default_timezone_set("America/Bogota"); // Cambia según tu pais
 session_start();
 if (!isset($_SESSION['id_usuario']) || $_SESSION['rol'] != 'Estudiante') {
     header("Location: ../login.php");
@@ -13,14 +14,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $id_usuario = $_SESSION['id_usuario'];
     $id_implemento = $_POST['id_implemento'];
     $cantidad = intval($_POST['cantidad']);
-    $horas_uso = intval($_POST['fecha_prestamo']);
+    $fecha_prestamo = $_POST['fecha_prestamo'];
+    $horas_uso = intval($_POST['hora_prestamo']);
     $observaciones_Est = $_POST['observaciones_Est'];
 
     $hora_prestamo = date("H:i:s");
     $hora_devolucion = date("H:i:s", strtotime("+$horas_uso hours", strtotime($hora_prestamo)));
 
     // Verificar la cantidad de préstamos activos del usuario
-    $query_prestamos = "SELECT COUNT(*) as total FROM prestamo WHERE id_usuario = ? AND estado = 'activo'";
+    $query_prestamos = "SELECT COUNT(*) as total FROM prestamo WHERE id_usuario = ? AND estado = 'disponible'";
     $stmt = $conn->prepare($query_prestamos);
     $stmt->bind_param("i", $id_usuario);
     $stmt->execute();
@@ -44,9 +46,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($cantidad > 0 && $cantidad <= $cantidad_disponible) {
                 // Insertar el préstamo en la base de datos
                 $insert = "INSERT INTO prestamo (id_usuario, id_implemento, cantidad, fecha_prestamo, hora_prestamo, hora_devolucion, observaciones_Est) 
-                        VALUES (?, ?, ?, ?, NOW(), ?, ?)";
+                        VALUES (?, ?, ?, ?, ?, ?, ?)";
                 $stmt = $conn->prepare($insert);
-                $stmt->bind_param("iiisss", $id_usuario, $id_implemento, $cantidad, $fecha_prestamo, $hora_prestamo, $hora_devolucion, $observaciones_Est);
+                $stmt->bind_param("iiissss", $id_usuario, $id_implemento, $cantidad, $fecha_prestamo, $hora_prestamo, $hora_devolucion, $observaciones_Est);
 
                 // Restar la cantidad prestada en la base de datos
                 if ($stmt->execute()) {
