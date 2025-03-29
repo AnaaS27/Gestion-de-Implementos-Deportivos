@@ -9,7 +9,7 @@ require_once '../conexion.php';
 
 $id_usuario = $_SESSION['id_usuario'];
 $query = "
-    SELECT p.id_prestamo, i.nombre AS implemento, p.fecha_prestamo, p.fecha_devolucion, p.hora_prestamo, p.hora_devolucion, p.estado, p.observaciones_Est, p.observaciones_Generales 
+    SELECT p.id_prestamo, i.nombre AS implemento, p.fecha_prestamo, p.hora_prestamo, p.hora_devolucion, p.estado, p.observaciones_Est, p.observaciones_Generales 
     FROM prestamo p 
     INNER JOIN implemento i ON p.id_implemento = i.id_implemento 
     WHERE p.id_usuario = ?";
@@ -83,7 +83,6 @@ $result = $stmt->get_result();
                         <th>ID Préstamo</th>
                         <th>Implemento</th>
                         <th>Fecha Préstamo</th>
-                        <th>Fecha Devolución</th>
                         <th>Hora Préstamo</th>
                         <th>Hora Devolución</th>
                         <th>Estado</th>
@@ -98,7 +97,6 @@ $result = $stmt->get_result();
                                 <td><?= $row['id_prestamo']; ?></td>
                                 <td><?= $row['implemento']; ?></td>
                                 <td><?= $row['fecha_prestamo']; ?></td>
-                                <td><?= $row['fecha_devolucion']; ?></td>
                                 <td><?= $row['hora_prestamo']; ?></td>
                                 <td><?= $row['hora_devolucion']; ?></td>
                                 <td><?= $row['estado']; ?></td>
