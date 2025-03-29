@@ -44,7 +44,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             if ($cantidad > 0 && $cantidad <= $cantidad_disponible) {
                 // Insertar el préstamo en la base de datos
                 $insert = "INSERT INTO prestamo (id_usuario, id_implemento, cantidad, fecha_prestamo, hora_prestamo, hora_devolucion, observaciones_Est) 
-                        VALUES (?, ?, ?, NOW(), ?, ?, ?)";
+                        VALUES (?, ?, ?, ?, NOW(), ?, ?)";
                 $stmt = $conn->prepare($insert);
                 $stmt->bind_param("iiisss", $id_usuario, $id_implemento, $cantidad, $fecha_prestamo, $hora_prestamo, $hora_devolucion, $observaciones_Est);
 
