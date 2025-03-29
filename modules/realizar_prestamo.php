@@ -22,12 +22,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $hora_devolucion = date("H:i:s", strtotime("+$horas_uso hours", strtotime($hora_prestamo)));
 
     // Verificar la cantidad de préstamos activos del usuario
-    $query_prestamos = "SELECT COUNT(*) as total FROM prestamo WHERE id_usuario = ? AND estado = 'disponible'";
+    $query_prestamos = "SELECT COUNT(*) as total FROM prestamo WHERE id_usuario = ? AND estado = 'activo'";
     $stmt = $conn->prepare($query_prestamos);
     $stmt->bind_param("i", $id_usuario);
     $stmt->execute();
     $result_prestamos = $stmt->get_result();
     $row_prestamos = $result_prestamos->fetch_assoc();
+
+    var_dump($row_prestamos['total']);
+    exit;
 
     if ($row_prestamos['total'] >= 2) {
         $mensaje = "<div class='alert alert-danger'>No puedes solicitar más de dos implementos.</div>";
