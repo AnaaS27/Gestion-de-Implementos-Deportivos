@@ -11,11 +11,12 @@ include '../conexion.php'; // Conexión a la base de datos
 
 // Obtener los préstamos
 $prestamos = [];
-$sql = "SELECT p.id_prestamo, p.fecha_prestamo, p.fecha_devolucion, p.estado, p.observaciones_Est, p.observaciones_Generales,
+$sql = "SELECT p.id_prestamo, p.fecha_prestamo, p.hora_prestamo, p.hora_devolucion, p.estado, p.observaciones_Est, p.observaciones_Generales,
                e.nombre AS estudiante, i.nombre AS implemento
         FROM prestamo p
-        JOIN estudiante e ON p.id_usuario = e.id_usuario
-        JOIN implemento i ON p.id_implemento = i.id_implemento";
+        LEFT JOIN usuario u ON p.id_usuario = u.id_usuario
+        LEFT JOIN estudiante e ON u.id_usuario = e.id_usuario
+        LEFT JOIN implemento i ON p.id_implemento = i.id_implemento";
 $result = mysqli_query($conn, $sql);
 if ($result) {
     while ($row = mysqli_fetch_assoc($result)) {
@@ -61,7 +62,8 @@ mysqli_close($conn);
                             <th>Estudiante</th>
                             <th>Implemento</th>
                             <th>Fecha de Préstamo</th>
-                            <th>Fecha de Devolución</th>
+                            <th>Hora Prestamo</th>
+                            <th>Hora Devolución</th>                            
                             <th>Estado</th>
                             <th>Observaciones Estudiante</th>
                             <th>Observaciones Generales</th>
@@ -75,7 +77,8 @@ mysqli_close($conn);
                                     <td><?= htmlspecialchars($prestamo['estudiante'], ENT_QUOTES, 'UTF-8'); ?></td>
                                     <td><?= htmlspecialchars($prestamo['implemento'], ENT_QUOTES, 'UTF-8'); ?></td>
                                     <td><?= htmlspecialchars($prestamo['fecha_prestamo'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                    <td><?= htmlspecialchars($prestamo['fecha_devolucion'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?= htmlspecialchars($prestamo['hora_prestamo'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?= htmlspecialchars($prestamo['hora_devolucion'], ENT_QUOTES, 'UTF-8'); ?></td>
                                     <td><?= htmlspecialchars($prestamo['estado'], ENT_QUOTES, 'UTF-8'); ?></td>
                                     <td><?= htmlspecialchars($prestamo['observaciones_Est'], ENT_QUOTES, 'UTF-8'); ?></td>
                                     <td><?= htmlspecialchars($prestamo['observaciones_Generales'], ENT_QUOTES, 'UTF-8'); ?></td>
@@ -105,5 +108,3 @@ mysqli_close($conn);
 
 </body>
 </html>
-
-
