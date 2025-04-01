@@ -112,6 +112,7 @@ $implementos_result = $conn->query($implementos_query);
                             <div class="mb-3">
                                 <label for="id_implemento" class="form-label">ID Implemento:</label>
                                 <input type="number" class="form-control" id="id_implemento" name="id_implemento" placeholder="Ingrese el ID del implemento" required>
+                                <small id="disponibilidad"></small> <!-- Agregamos esta línea -->
                             </div>
                             <div class="mb-3">
                                 <label for="cantidad" class="form-label">Cantidad:</label>
@@ -181,6 +182,31 @@ $implementos_result = $conn->query($implementos_query);
                 let name = row.cells[1].textContent.toLowerCase();
                 row.style.display = name.includes(filter) ? '' : 'none';
             });
+        });
+
+        document.getElementById('id_implemento').addEventListener('change', function() {
+            let idImplemento = this.value;
+            let cantidadInput = document.getElementById('cantidad');
+            let disponibilidadMsg = document.getElementById('disponibilidad');
+
+            if (idImplemento) {
+                fetch('verificar_disponibilidad.php', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/x-www-form-urlencoded'},
+                    body: 'id_implemento=' + idImplemento
+                })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.disponible) {
+                        cantidadInput.max = data.cantidad;
+                        disponibilidadMsg.innerHTML = `<span class="text-success">Disponibles: ${data.cantidad}</span>`;
+                    } else {
+                        cantidadInput.max = 0;
+                        disponibilidadMsg.innerHTML = `<span class="text-danger">No disponible</span>`;
+                    }
+                })
+                .catch(error => console.error('Error:', error));
+            }
         });
     </script>
 </body>
