@@ -29,8 +29,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result_prestamos = $stmt->get_result();
     $row_prestamos = $result_prestamos->fetch_assoc();
 
-    var_dump($row_prestamos['total']);
-    exit;
+    //var_dump($row_prestamos['total']);
+    //exit;
 
     if ($row_prestamos['total'] >= 2) {
         $mensaje = "<div class='alert alert-danger'>No puedes solicitar más de dos implementos.</div>";
