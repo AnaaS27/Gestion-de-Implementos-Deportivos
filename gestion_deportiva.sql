@@ -3,8 +3,8 @@
 -- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 29-03-2025 a las 04:36:39
--- Versión del servidor: 10.4.32-MariaDB
+-- Tiempo de generación: 02-04-2025 a las 04:18:35
+-- Versión del servidor: 10.4.32-MariaDB-log
 -- Versión de PHP: 8.2.12
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
@@ -39,6 +39,20 @@ CREATE TABLE `curso` (
 
 INSERT INTO `curso` (`id_curso`, `nombre_curso`, `descripcion`) VALUES
 (2724, 'Tecnologia en Desarrollo de Software', 'TDS');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `devoluciones`
+--
+
+CREATE TABLE `devoluciones` (
+  `id_devolucion` int(11) NOT NULL,
+  `id_prestamo` int(11) NOT NULL,
+  `fecha_devolucion` date NOT NULL,
+  `estado` enum('Bueno','Regular','Malo') NOT NULL,
+  `observaciones` text DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- --------------------------------------------------------
 
@@ -182,6 +196,13 @@ ALTER TABLE `curso`
   ADD PRIMARY KEY (`id_curso`);
 
 --
+-- Indices de la tabla `devoluciones`
+--
+ALTER TABLE `devoluciones`
+  ADD PRIMARY KEY (`id_devolucion`),
+  ADD KEY `id_prestamo` (`id_prestamo`);
+
+--
 -- Indices de la tabla `encargado`
 --
 ALTER TABLE `encargado`
@@ -229,6 +250,12 @@ ALTER TABLE `curso`
   MODIFY `id_curso` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2725;
 
 --
+-- AUTO_INCREMENT de la tabla `devoluciones`
+--
+ALTER TABLE `devoluciones`
+  MODIFY `id_devolucion` int(11) NOT NULL AUTO_INCREMENT;
+
+--
 -- AUTO_INCREMENT de la tabla `encargado`
 --
 ALTER TABLE `encargado`
@@ -261,6 +288,12 @@ ALTER TABLE `usuario`
 --
 -- Restricciones para tablas volcadas
 --
+
+--
+-- Filtros para la tabla `devoluciones`
+--
+ALTER TABLE `devoluciones`
+  ADD CONSTRAINT `devoluciones_ibfk_1` FOREIGN KEY (`id_prestamo`) REFERENCES `prestamo` (`id_prestamo`) ON DELETE CASCADE;
 
 --
 -- Filtros para la tabla `encargado`
