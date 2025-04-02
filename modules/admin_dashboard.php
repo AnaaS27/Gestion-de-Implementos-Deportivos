@@ -96,17 +96,19 @@ if (!isset($_SESSION['id_usuario']) || $_SESSION['rol'] != 'Administrador') {
                     </div>
                 </div>
             </div>
+
+            <!-- Nueva tarjeta: Gestión de Devoluciones -->
+            <div class="col-12 col-sm-12 col-md-6 col-lg-4">
+                <div class="card text-center h-100">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title"><i class="fas fa-undo"></i> Gestionar Devoluciones</h5>
+                        <p class="card-text">Registra y administra las devoluciones de implementos.</p>
+                        <a href="gestionar_devoluciones.php" class="btn mt-auto">Ir</a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-<!-- Pie de página, incluido desde un archivo externo -->
     <?php include '../includes/footer.php'; ?>
 </body>
 </html>
-
-
-
-
-
-
-
