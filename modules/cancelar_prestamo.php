@@ -40,18 +40,28 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     $result = $stmt->get_result();
 
     if ($result->num_rows > 0) {
-        // Actualizar el estado del préstamo a Cancelado y añadir observaciones
-        $update = "UPDATE prestamo SET estado = ?, observaciones_Est = ? WHERE id_prestamo = ?";
-        $stmt = $conn->prepare($update);
+        $prestamo = $result->fetch_assoc();
+        $id_implemento = $prestamo['id_implemento'];
+        $cantidad_prestada = $prestamo['cantidad']; // Asegúrate que exista esta columna en la tabla `prestamo`
+
+        // Paso 1: Devolver la cantidad al inventario
+        $update_inventario = "UPDATE implemento SET cantidad = cantidad + ? WHERE id_implemento = ?";
+        $stmt = $conn->prepare($update_inventario);
+        $stmt->bind_param("ii", $cantidad_prestada, $id_implemento);
+        $stmt->execute();
+
+        // Paso 2: Actualizar el estado del préstamo a Cancelado y añadir observaciones
+        $update_prestamo = "UPDATE prestamo SET estado = ?, observaciones_Est = ? WHERE id_prestamo = ?";
+        $stmt = $conn->prepare($update_prestamo);
         $stmt->bind_param("ssi", $estado, $observaciones, $id_prestamo);
         if ($stmt->execute()) {
-            $message = "Préstamo cancelado con éxito."; // Mensaje de éxito
+            $message = "Préstamo cancelado con éxito. La cantidad fue devuelta al inventario.";
             header("Refresh:2"); // Refrescar la página para mostrar los datos actualizados
         } else {
-            $message = "Error al cancelar el préstamo."; // Mensaje de error
+            $message = "Error al cancelar el préstamo.";
         }
     } else {
-        $message = "El préstamo no existe o no pertenece a este usuario."; // Mensaje de validación
+        $message = "El préstamo no existe o no pertenece a este usuario.";
     }
 }
 ?>
