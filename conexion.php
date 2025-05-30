@@ -1,15 +1,13 @@
 <?php
-$servername = "localhost"; // Cambia por tu servidor (si usas hosting puede ser diferente)
-$username = "root"; // Usuario de tu base de datos
-$password = ""; // Contraseña de tu base de datos
-$dbname = "gestion_deportiva"; // Nombre de tu base de datos
+$host = 'db'; // Este nombre es el nombre del servicio MySQL en docker-compose
+$usuario = 'usuario';
+$clave = 'clave123';
+$bd = 'gestion_deportiva';
 
-// Crear conexión
-$conn = new mysqli($servername, $username, $password, $dbname);
+$conn = new mysqli($host, $usuario, $clave, $bd);
 
-// Verificar conexión
 if ($conn->connect_error) {
-    die("Conexión fallida: " . $conn->connect_error);
+    die("Error de conexión: " . $conn->connect_error);
 }
-?>
+
 

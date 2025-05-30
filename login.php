@@ -1,7 +1,8 @@
 <?php
+session_start();
 include 'conexion.php'; // Incluye el archivo de conexión
 
-session_start();
+
 
 // Verificar si ya hay una sesión activa
 if (isset($_SESSION['id_usuario'])) {

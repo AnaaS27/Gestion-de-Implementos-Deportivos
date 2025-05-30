@@ -1,0 +1,22 @@
+name: Deploy PHP App
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout código
+      uses: actions/checkout@v3
+
+    - name: Set up Docker
+      uses: docker/setup-buildx-action@v3
+
+    - name: Build Docker image
+      run: docker build -t mi-app-php .
+
+    - name: Mostrar éxito
+      run: echo "La aplicación fue dockerizada exitosamente"

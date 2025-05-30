@@ -73,15 +73,15 @@ mysqli_close($conn);
                         <?php if (!empty($prestamos)): ?>
                             <?php foreach ($prestamos as $prestamo): ?>
                                 <tr>
-                                    <td><?= htmlspecialchars($prestamo['id_prestamo'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                    <td><?= htmlspecialchars($prestamo['estudiante'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                    <td><?= htmlspecialchars($prestamo['implemento'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                    <td><?= htmlspecialchars($prestamo['fecha_prestamo'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                    <td><?= htmlspecialchars($prestamo['hora_prestamo'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                    <td><?= htmlspecialchars($prestamo['hora_devolucion'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                    <td><?= htmlspecialchars($prestamo['estado'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                    <td><?= htmlspecialchars($prestamo['observaciones_Est'], ENT_QUOTES, 'UTF-8'); ?></td>
-                                    <td><?= htmlspecialchars($prestamo['observaciones_Generales'], ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?= htmlspecialchars($prestamo['id_prestamo'] ?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?= htmlspecialchars($prestamo['estudiante']?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?= htmlspecialchars($prestamo['implemento']?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?= htmlspecialchars($prestamo['fecha_prestamo']?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?= htmlspecialchars($prestamo['hora_prestamo']?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?= htmlspecialchars($prestamo['hora_devolucion']?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?= htmlspecialchars($prestamo['estado']?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?= htmlspecialchars($prestamo['observaciones_Est']?? '', ENT_QUOTES, 'UTF-8'); ?></td>
+                                    <td><?= htmlspecialchars($prestamo['observaciones_Generales']?? '', ENT_QUOTES, 'UTF-8'); ?></td>
                                 </tr>
                             <?php endforeach; ?>
                         <?php else: ?>
