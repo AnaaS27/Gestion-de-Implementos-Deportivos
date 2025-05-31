@@ -19,7 +19,7 @@ services:
       MYSQL_ROOT_PASSWORD: root123
     volumes:
       - mysql_data:/var/lib/mysql
+      - ./db/gestion_deportiva.sql:/docker-entrypoint-initdb.d/init.sql
 
 volumes:
   mysql_data:
-
