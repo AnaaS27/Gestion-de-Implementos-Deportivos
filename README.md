@@ -33,7 +33,6 @@ Implementar un sistema web para la gestión de implementos deportivos, desplegad
 
 Este stack tecnológico fue elegido para facilitar el desarrollo rápido, contenerización ligera y despliegue automatizado, asegurando portabilidad y facilidad de mantenimiento.
 
-# Despliegue Local
 
 # 1. Clonar el repositorio
 
@@ -69,9 +68,9 @@ La base de datos se inicializa automáticamente al levantar los contenedores, gr
 
 El repositorio incluye un pipeline de integración continua utilizando GitHub Actions ubicado en .github/workflows/deploy.yml, el cual realiza las siguientes tareas:
 
-    Verificación y análisis estático del código PHP para detectar errores comunes.
+-Verificación y análisis estático del código PHP para detectar errores comunes.
 
-    Construcción de imágenes Docker y despliegue automatizado a un entorno de producción o staging.
+-Construcción de imágenes Docker y despliegue automatizado a un entorno de producción o staging.
 
 El pipeline se ejecuta automáticamente en cada push al repositorio, ayudando a mantener la calidad del código y acelerar el proceso de despliegue
 
